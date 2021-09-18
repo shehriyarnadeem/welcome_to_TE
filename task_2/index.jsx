@@ -3,7 +3,9 @@ import { useState, Fragment, memo } from 'react';
 const MainComponent = () => {
     const [ _, updateComponent ] = useState(); // change state for force component updating
 
-    const makeLog = () => console.log('hi from MainComponent'); // function to make a log from MainComponent
+    const makeLog = useCallback(() => {
+        console.log('hi from MainComponent') // function to make a log from MainComponent
+    }, [])
 
     return (
         <Fragment>

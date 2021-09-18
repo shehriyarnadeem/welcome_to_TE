@@ -1,31 +1,41 @@
-import { useState } from 'react';
+import React, { useState, Fragment } from 'react'
 
-const Block1 = ({ mouseEnterCallbak, imgSrc, imgAlt }) => {
-    const [ isActive, setActive ] = useState(false);
+const BlockParent = () => {
+    const mouseEnterCallbak = () => {
+        console.log('Mouse entered')
+    }
+    const imgSrc = 'https://via.placeholder.com/150'
+    const imgAlt = 'Alt name'
+    const content = 'Anything'
+
+    return (
+        <Fragment>
+            <Block mouseEnterCallbak={mouseEnterCallbak}>
+                <img src={imgSrc} alt={imgAlt} />
+            </Block>
+            <Block mouseEnterCallbak={mouseEnterCallbak}>
+                <p>BLock2 content: {content}</p>
+            </Block>
+        </Fragment>
+    )
+}
+
+const Block = React.memo(({ mouseEnterCallbak, children }) => {
+    const [isActive, setActive] = useState(false)
 
     const mouseEnterHandler = () => {
-        setActive(true);
-        mouseEnterCallbak();
+        setActive(true)
+        mouseEnterCallbak()
     }
 
     return (
-        <div onMouseEnter={mouseEnterHandler} className={ isActive ? 'active': '' }>
-            <img src={imgSrc} alt={imgAlt} />
+        <div
+            onMouseDown={mouseEnterHandler}
+            className={isActive ? 'active' : ''}
+        >
+            {children}
         </div>
-    );
-}
+    )
+})
 
-const Block2 = ({ mouseEnterCallbak, content }) => {
-    const [ isActive, setActive ] = useState(false);
-
-    const mouseEnterHandler = () => {
-        setActive(true);
-        mouseEnterCallbak();
-    }
-
-    return (
-        <div onMouseEnter={mouseEnterHandler} className={ isActive ? 'active': '' }>
-            <p>BLock2 content: {content}</p>
-        </div>
-    );
-}
+export default App

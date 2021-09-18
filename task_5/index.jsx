@@ -14,3 +14,4 @@ const MainComponent = () => {
 
     // ... other code
 };
+
